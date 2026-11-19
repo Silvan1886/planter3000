@@ -31,14 +31,19 @@ Material:
 MQTT Topics
 
 Daten an Server schicken: 
+```
 	planter3000/{roomNr}/{plantNr}/soilSensor
 	planter3000/{roomNr}/{plantNr}/onFire
 	planter3000/{roomNr}/roomSensorData
+```
+
+server subscribes to:
 	
-	server subscribes to:
+```
 	planter3000/+/roomSensorData
 	planter3000/+/+/soilSensor
 	planter3000/+/+/onFire
+```
 	
 	
 Server schickt Daten: 
