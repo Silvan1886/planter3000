@@ -2,10 +2,12 @@ Planter 3000:
 
 Raspberry Pis: 
 
-Rot:        172.16.33.53 / b8:27:eb:f2:be:e7    (Nicht von Kit 4)
-Violet:     172.16.33.30 / b8:27:eb:51:a7:12 
-Schwarz 1:  172.16.32.187 / b8:27:eb:6b:fb:c2 	 
-Schwarz 2:  172.16.32.170 / b8:27:eb:89:6b:85 	
+| Pi        | Rolle          | IP-Adresse    | MAC-Adresse       | MQTT User |
+|-----------|----------------|---------------|-------------------|-----------|
+| Rot       | MQTT Broker Pi | 172.16.33.53  | b8:27:eb:f2:be:e7 | admin     |
+| Violet    | Server Pi      | 172.16.33.30  | b8:27:eb:51:a7:12 | server    |
+| Schwarz 1 | Room Pi        | 172.16.32.187 | b8:27:eb:6b:fb:c2 | room      |
+| Schwarz 2 | Plant Pi       | 172.16.32.170 | b8:27:eb:89:6b:85 | plant     |
 
 Grundidee: 
 - Feuchtigkeitssensoren im Pflanzentopf und bei zu wenig Feuchtigkeit wird mit einer Pumpe Wasser gegeben. 
@@ -24,7 +26,9 @@ Grundidee:
 		Evtl. Vibecode oder Opentelemetry
 
 - MQTT Broker
-	ZHAW Mqtt Broker
+	Mosquitto auf Rot (172.16.33.53), Port 1883
+	Login pro Pi mit eigenem MQTT User, Zugriffsrechte pro Topic (ACL)
+	Setup und Konfiguration: siehe [broker/README.md](broker/README.md)
 
 Material: 
 - Mind. 4 Raspberry Pis
@@ -44,12 +48,18 @@ Daten an Server schicken:
 	planter3000/{roomNr}/roomSensorData
 ```
 
+Status pro Pi (online / offline, retained, Last Will): 
+```
+	planter3000/status/{mqttUser}
+```
+
 server subscribes to:
 	
 ```
 	planter3000/+/roomSensorData
 	planter3000/+/+/soilSensor
 	planter3000/+/+/onFire
+	planter3000/status/+
 ```
 	
 	

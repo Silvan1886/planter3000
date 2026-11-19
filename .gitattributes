@@ -1,0 +1,2 @@
+# Files copied to the Raspberry Pis must keep Linux line endings
+broker/** text eol=lf

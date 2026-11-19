@@ -1,0 +1,32 @@
+# Mosquitto ACL for Planter 3000
+# Install on the broker Pi (Rot, 172.16.33.53) as /etc/mosquitto/acl
+# Anything not explicitly allowed here is denied.
+#
+# Topics:
+#   planter3000/{roomNr}/{plantNr}/soilSensor   plant  -> server
+#   planter3000/{roomNr}/{plantNr}/onFire       plant  -> server
+#   planter3000/{roomNr}/roomSensorData         room   -> server
+#   planter3000/{roomNr}/{plantNr}/waterPlant   server -> plant
+#   planter3000/status/{user}                   online/offline (retained, Last Will)
+
+# Every user may publish its own status (online/offline, LWT)
+pattern write planter3000/status/%u
+
+# Admin Pi (Rot / broker): debugging, sees and may send everything
+user admin
+topic readwrite #
+
+# Server Pi (Violet): reads all data, sends watering commands
+user server
+topic read planter3000/#
+topic write planter3000/+/+/waterPlant
+
+# Room Pi (Schwarz 1): room sensors of room 1
+user room
+topic write planter3000/1/roomSensorData
+
+# Plant Pi (Schwarz 2): all plants in room 1
+user plant
+topic write planter3000/1/+/soilSensor
+topic write planter3000/1/+/onFire
+topic read planter3000/1/+/waterPlant
