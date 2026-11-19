@@ -1,5 +1,12 @@
 Planter 3000: 
 
+Raspberry Pis: 
+
+Rot:        172.16.33.53 / b8:27:eb:f2:be:e7    (Nicht von Kit 4)
+Violet:     172.16.33.30 / b8:27:eb:51:a7:12 
+Schwarz 1:  172.16.32.187 / b8:27:eb:6b:fb:c2 	 
+Schwarz 2:  172.16.32.170 / b8:27:eb:89:6b:85 	
+
 Grundidee: 
 - Feuchtigkeitssensoren im Pflanzentopf und bei zu wenig Feuchtigkeit wird mit einer Pumpe Wasser gegeben. 
 
